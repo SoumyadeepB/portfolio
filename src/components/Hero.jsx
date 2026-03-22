@@ -60,7 +60,7 @@ export default function Hero() {
                   className="hero-word"
                   style={{ animationDelay: `${0.15 + i * 0.08}s` }}
                 >
-                  {word}{' '}
+                  {word}
                 </span>
               ))}
             </h1>

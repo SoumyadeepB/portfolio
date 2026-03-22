@@ -127,6 +127,7 @@ body {
 /* 1 — Hero word-by-word stagger */
 .hero-word {
   display: inline-block;
+  margin-right: 0.3em;
   opacity: 0;
   transform: translateY(16px);
   animation: hero-word-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
