@@ -23,12 +23,12 @@ const EDUCATION = [
 
 export default function Education() {
   return (
-    <section id="education" className="py-24 px-6 bg-slate-900/30">
-      <div className="max-w-4xl mx-auto">
+    <section id="education" className="section-block">
+      <div className="section-wrap">
         <SectionHeading title="Education" />
 
-        <div className="relative">
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-accent-green/60 via-accent-blue/40 to-transparent" />
+        <div className="relative mt-12">
+          <div className="timeline-line" />
 
           {EDUCATION.map((edu, i) => (
             <TimelineItem key={i} item={edu} index={i} />
@@ -42,12 +42,20 @@ export default function Education() {
 function SectionHeading({ title }) {
   const [ref, visible] = useInView()
   return (
-    <h2
+    <div
       ref={ref}
-      className={`text-3xl md:text-4xl font-bold text-center mb-16 fade-in ${visible ? 'visible' : ''}`}
+      className={`fade-in ${visible ? 'visible' : ''}`}
     >
-      <span className="gradient-text">{title}</span>
-    </h2>
+      <span className="section-eyebrow">{title}</span>
+      <div className="section-heading-row">
+        <h2 className="section-title">Foundations in computer science, ML, and systems thinking.</h2>
+        <p className="section-intro">
+          M.Sc. in Computer Science from Universität Stuttgart with a focus on
+          intelligent systems and deep learning, built on a B.Tech. foundation
+          in algorithms and systems architecture.
+        </p>
+      </div>
+    </div>
   )
 }
 
@@ -61,31 +69,27 @@ function TimelineItem({ item, index }) {
       className={`relative flex items-start mb-12 md:mb-16 fade-in ${visible ? 'visible' : ''}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="absolute left-6 md:left-1/2 w-3.5 h-3.5 -translate-x-1/2 mt-6 rounded-full bg-accent-green shadow-lg shadow-accent-green/30 z-10 ring-4 ring-slate-950" />
+      <div className="timeline-dot" />
 
       <div
         className={`ml-14 md:ml-0 md:w-[calc(50%-2rem)] ${
           isLeft ? 'md:mr-auto md:pr-4' : 'md:ml-auto md:pl-4'
         }`}
       >
-        <div className="group bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 hover:border-accent-green/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-green/5">
+        <div className="card-surface p-5">
           <div className="flex items-start gap-4">
             <img
               src={`${BASE}assets/${item.logo}`}
               alt={item.institution}
-              className="w-16 h-16 rounded-xl object-contain bg-white shrink-0"
+              className="card-logo"
             />
             <div className="min-w-0">
-              <h3 className="text-base md:text-lg font-semibold text-white leading-snug">
-                {item.institution}
-              </h3>
-              <p className="text-accent-green/80 text-sm mt-0.5">
-                {item.degree}
-              </p>
-              <p className="text-slate-500 text-sm mt-1">{item.period}</p>
+              <h3 className="card-heading !text-base md:!text-lg !mt-0">{item.institution}</h3>
+              <p className="card-subtext">{item.degree}</p>
+              <p className="card-meta-upper mt-1">{item.period}</p>
               {item.courses && (
-                <p className="text-slate-600 text-xs mt-2 leading-relaxed">
-                  <span className="text-slate-500">Key courses:</span>{' '}
+                <p className="card-courses">
+                  <span className="card-courses-label">Key courses:</span>{' '}
                   {item.courses}
                 </p>
               )}

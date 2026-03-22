@@ -1,5 +1,49 @@
 import { useInView } from '../hooks/useInView'
 
+const SI = (slug) => `https://cdn.simpleicons.org/${slug}`
+const DI = (name) => `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${name}/${name}-original.svg`
+const AWS = (cat, name) => `https://icon.icepanel.io/AWS/svg/${cat}/${name}.svg`
+const FLAG = (code) => `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/${code}.svg`
+
+const ICON_MAP = {
+  'Python':           SI('python'),
+  'Java':             SI('openjdk'),
+  'C':                SI('c'),
+  'Matlab':           DI('matlab'),
+  'GitHub':           SI('github'),
+  'Bitbucket':        SI('bitbucket'),
+  'HTML':             SI('html5'),
+  'CSS':              DI('css3'),
+  'JavaScript':       SI('javascript'),
+  'NodeJS':           SI('nodedotjs'),
+  'ReactJS':          SI('react'),
+  'Docker':           SI('docker'),
+  'Oracle':           DI('oracle'),
+  'MySQL':            SI('mysql'),
+  'PyTorch':          SI('pytorch'),
+  'LangChain':        SI('langchain'),
+  'LangGraph':        SI('langchain'),
+  'Core ML':          SI('apple'),
+  'Apache TVM':       SI('apache'),
+  'Weights & Biases': SI('weightsandbiases'),
+  'LangSmith':        SI('langchain'),
+  'AWS Lambda':       AWS('Compute', 'Lambda'),
+  'EC2':              AWS('Compute', 'EC2'),
+  'S3':               AWS('Storage', 'Simple-Storage-Service'),
+  'DynamoDB':         AWS('Database', 'DynamoDB'),
+  'API Gateway':      AWS('App-Integration', 'API-Gateway'),
+  'SageMaker':        AWS('Machine-Learning', 'SageMaker'),
+  'CloudWatch':       AWS('Management-Governance', 'CloudWatch'),
+  'Jira':             SI('jira'),
+  'Confluence':       SI('confluence'),
+  'Microsoft 365':    DI('windows11'),
+  'English (C2)':     FLAG('1f1ec-1f1e7'),
+  'German (A2)':      FLAG('1f1e9-1f1ea'),
+  'Spanish (A1)':     FLAG('1f1ea-1f1f8'),
+  'Bengali (Native)': FLAG('1f1ee-1f1f3'),
+  'Hindi (Native)':   FLAG('1f1ee-1f1f3'),
+}
+
 const SKILL_CATEGORIES = [
   {
     title: 'Programming & Version Control',
@@ -7,37 +51,23 @@ const SKILL_CATEGORIES = [
   },
   {
     title: 'Web & Databases',
-    skills: [
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'NodeJS',
-      'ReactJS',
-      'Docker',
-      'Oracle',
-      'MySQL',
-    ],
+    skills: ['HTML', 'CSS', 'JavaScript', 'NodeJS', 'ReactJS', 'Docker', 'Oracle', 'MySQL'],
   },
   {
     title: 'ML / Agentic AI',
-    skills: [
-      'PyTorch',
-      'NumPy',
-      'Pandas',
-      'matplotlib',
-      'LangChain',
-      'LangGraph',
-    ],
+    skills: ['PyTorch', 'LangChain', 'LangGraph', 'mem0', 'deepagents', 'Core ML', 'Apache TVM'],
+  },
+  {
+    title: 'Logging & Observability',
+    skills: ['Weights & Biases', 'LangSmith'],
+  },
+  {
+    title: 'Cloud & MLOps',
+    skills: ['AWS Lambda', 'EC2', 'S3', 'DynamoDB', 'API Gateway', 'SageMaker', 'CloudWatch', 'Docker'],
   },
   {
     title: 'Project Management',
-    skills: [
-      'Jira',
-      'Confluence',
-      'Microsoft 365',
-      'Kanban',
-      'Scrum',
-    ],
+    skills: ['Jira', 'Confluence', 'Microsoft 365', 'Kanban', 'Scrum'],
   },
   {
     title: 'Languages',
@@ -49,16 +79,24 @@ export default function Skills() {
   const [headingRef, headingVisible] = useInView()
 
   return (
-    <section id="skills" className="py-24 px-6 bg-slate-900/30">
-      <div className="max-w-4xl mx-auto">
-        <h2
+    <section id="skills" className="section-block section-block-lined">
+      <div className="section-wrap">
+        <div
           ref={headingRef}
-          className={`text-3xl md:text-4xl font-bold text-center mb-16 fade-in ${headingVisible ? 'visible' : ''}`}
+          className={`fade-in ${headingVisible ? 'visible' : ''}`}
         >
-          <span className="gradient-text">Skills</span>
-        </h2>
+          <span className="section-eyebrow">Capabilities</span>
+          <div className="section-heading-row">
+            <h2 className="section-title">Tooling, languages, and execution range.</h2>
+            <p className="section-intro">
+              Full-stack across ML systems, cloud infrastructure, and
+              product delivery — from PyTorch and LangGraph to AWS and
+              on-device optimization.
+            </p>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SKILL_CATEGORIES.map((cat, i) => (
             <SkillCard key={i} category={cat} index={i} />
           ))}
@@ -74,19 +112,26 @@ function SkillCard({ category, index }) {
   return (
     <div
       ref={ref}
-      className={`fade-in ${visible ? 'visible' : ''}`}
+      className={`fade-in h-full ${visible ? 'visible' : ''}`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      <div className="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 h-full hover:border-accent-blue/20 transition-all duration-300">
-        <h3 className="text-sm font-semibold text-accent-blue/80 mb-3">
-          {category.title}
-        </h3>
+      <div className="card-surface p-5 h-full">
+        <h3 className="skill-cat-title">{category.title}</h3>
         <div className="flex flex-wrap gap-2">
-          {category.skills.map((skill) => (
+          {category.skills.map((skill, i) => (
             <span
               key={skill}
-              className="px-3 py-1 text-xs text-slate-300 bg-slate-800/80 rounded-full border border-slate-700/50 hover:border-accent-green/30 hover:text-accent-green transition-colors duration-200"
+              className={`skill-tag skill-tag-stagger ${visible ? 'skill-tag-visible' : ''}`}
+              style={{ transitionDelay: visible ? `${index * 80 + i * 35}ms` : '0ms' }}
             >
+              {ICON_MAP[skill] && (
+                <img
+                  src={ICON_MAP[skill]}
+                  alt=""
+                  className={`skill-icon ${ICON_MAP[skill].includes('icepanel') || ICON_MAP[skill].includes('devicon') || ICON_MAP[skill].includes('twemoji') ? 'skill-icon-color' : ''}`}
+                  loading="lazy"
+                />
+              )}
               {skill}
             </span>
           ))}

@@ -12,8 +12,13 @@ const EXPERIENCE = [
     logo: 'knowlix.png',
     highlights: [
       'Built the core Generative AI & RAG platform, contributing ~90% of the initial production codebase across ML systems, backend, and frontend.',
+      'Worked directly with the CEO and CTO, both experienced startup founders with extensive Silicon Valley backgrounds.',
+      'Participated in client discovery calls with SME companies in Germany and the US to evaluate AI integration opportunities within ERP workflows.',
       'Developed agentic AI workflows integrated with ERP systems to automate CRM, quotation, invoicing, and support operations.',
-      'Architected secure and scalable AI infrastructure on AWS with privacy-compliant cloud deployments.',
+      'Designed and deployed ML models for on-device inference across iOS and macOS, optimizing with quantization, pruning, and Apache TVM.',
+      'Architected secure and scalable AI infrastructure on AWS, collaborating with AWS engineers for privacy-compliant deployments.',
+      'Developed federated learning proof-of-concepts for privacy-preserving on-device ML, contributing to securing German R&D funding.',
+      'Supported the company\'s strategic pivot from B2C to B2B, developing solution PoCs and technical decks for VC fundraising.',
       'Led technical hiring and mentoring, interviewing 50+ candidates across ML, frontend, and full-stack roles.',
     ],
   },
@@ -81,16 +86,24 @@ export default function Experience() {
   const [headingRef, headingVisible] = useInView()
 
   return (
-    <section id="experience" className="py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h2
+    <section id="experience" className="section-block section-block-lined">
+      <div className="section-wrap">
+        <div
           ref={headingRef}
-          className={`text-3xl md:text-4xl font-bold text-center mb-16 fade-in ${headingVisible ? 'visible' : ''}`}
+          className={`fade-in ${headingVisible ? 'visible' : ''}`}
         >
-          <span className="gradient-text">Experience</span>
-        </h2>
+          <span className="section-eyebrow">Experience</span>
+          <div className="section-heading-row">
+            <h2 className="section-title">Built across startups, research labs, and enterprise delivery.</h2>
+            <p className="section-intro">
+              From founding a VC-backed AI startup working with Silicon Valley
+              leadership, to deep learning research at Sony and Fraunhofer,
+              to enterprise software at Nomura.
+            </p>
+          </div>
+        </div>
 
-        <div className="space-y-6">
+        <div className="mt-12 space-y-6">
           {EXPERIENCE.map((exp, i) => (
             <ExperienceCard key={i} item={exp} index={i} />
           ))}
@@ -109,10 +122,10 @@ function ExperienceCard({ item, index }) {
       className={`fade-in ${visible ? 'visible' : ''}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="group relative bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 hover:border-accent-blue/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue/5">
+      <div className="card-surface">
         {!item.endDate && (
-          <span className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium text-accent-green">
-            <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
+          <span className="card-badge">
+            <span className="card-badge-dot" />
             Current
           </span>
         )}
@@ -121,30 +134,22 @@ function ExperienceCard({ item, index }) {
           <img
             src={`${BASE}assets/${item.logo}`}
             alt={item.company}
-            className="w-20 h-20 rounded-xl object-contain bg-white shrink-0"
+            className="card-logo"
           />
           <div className="min-w-0">
-            <h3 className="text-lg md:text-xl font-semibold text-white">
-              {item.company}
-            </h3>
-            <p className="text-accent-blue/80 text-sm mt-0.5">{item.role}</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1.5 text-sm text-slate-500">
+            <p className="card-meta-upper">{item.location}</p>
+            <h3 className="card-heading">{item.company}</h3>
+            <p className="card-subtext">{item.role}</p>
+            <div className="card-date-row">
               <span>{formatPeriod(item.startDate, item.endDate)}</span>
-              <span className="text-slate-700">·</span>
+              <span className="card-date-sep">·</span>
               <span>{formatDuration(item.startDate, item.endDate)}</span>
-              <span className="text-slate-700">·</span>
-              <span>{item.location}</span>
             </div>
 
             {item.highlights.length > 0 && (
-              <ul className="mt-3 space-y-1.5">
+              <ul className="card-highlights">
                 {item.highlights.map((h, i) => (
-                  <li
-                    key={i}
-                    className="text-slate-400 text-sm leading-relaxed pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-slate-700"
-                  >
-                    {h}
-                  </li>
+                  <li key={i}>{h}</li>
                 ))}
               </ul>
             )}

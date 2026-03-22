@@ -1,3 +1,10 @@
 node_modules
 dist
 .DS_Store
+public/concepts
+public/concepts-radical
+# Current profile with resume to be used to modify the page
+profile/* 
+
+# Run script
+start-docker.sh

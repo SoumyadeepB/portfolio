@@ -30,16 +30,24 @@ export default function Achievements() {
   const [headingRef, headingVisible] = useInView()
 
   return (
-    <section id="achievements" className="py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h2
+    <section id="achievements" className="section-block">
+      <div className="section-wrap">
+        <div
           ref={headingRef}
-          className={`text-3xl md:text-4xl font-bold text-center mb-16 fade-in ${headingVisible ? 'visible' : ''}`}
+          className={`fade-in ${headingVisible ? 'visible' : ''}`}
         >
-          <span className="gradient-text">Certifications & Awards</span>
-        </h2>
+          <span className="section-eyebrow">Awards</span>
+          <div className="section-heading-row">
+            <h2 className="section-title">Recognition across AI and systems-focused work.</h2>
+            <p className="section-intro">
+              Selected from global competitions and scholarship programs in
+              edge AI and enterprise systems — recognized among thousands of
+              students across 120+ countries.
+            </p>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {ACHIEVEMENTS.map((item, i) => (
             <AchievementCard key={i} item={item} index={i} />
           ))}
@@ -65,29 +73,25 @@ function AchievementCard({ item, index }) {
     >
       <Wrapper
         {...linkProps}
-        className="group block h-full bg-slate-900/80 border border-slate-800/80 rounded-2xl overflow-hidden hover:border-accent-green/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-green/5"
+        className="group block h-full overflow-hidden card-surface !p-0"
       >
         {item.image && (
-          <div className="aspect-video bg-slate-800/50 overflow-hidden">
+          <div className="achievement-img-wrap">
             <img
               src={`${BASE}assets/${item.image}`}
               alt={item.title}
-              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+              className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
             />
           </div>
         )}
         <div className="p-5">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-sm font-semibold text-white group-hover:text-accent-green transition-colors leading-snug">
-              {item.title}
-            </h3>
+          <div className="mb-1 flex items-center gap-2">
+            <h3 className="achievement-title">{item.title}</h3>
           </div>
-          <span className="text-accent-green/60 text-xs">{item.year}</span>
-          <p className="text-slate-500 text-xs mt-2 leading-relaxed">
-            {item.description}
-          </p>
+          <span className="card-meta-upper">{item.year}</span>
+          <p className="achievement-desc">{item.description}</p>
           {item.url && (
-            <span className="inline-flex items-center gap-1 text-accent-green/70 text-xs mt-3 group-hover:text-accent-green transition-colors">
+            <span className="achievement-link">
               View details
               <svg
                 className="w-3 h-3"
